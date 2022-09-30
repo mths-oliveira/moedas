@@ -15,17 +15,15 @@ import { currencies } from "../../currencies.json"
 import { removeAccent } from "../utils/remove-accent"
 import { useState } from "react"
 import { debounce } from "../utils/debounce"
-
-interface Currency {
-  code: string
-  countries: string[]
-  name: string
-  symbol: string
-}
+import {
+  getCurrencyQuoteByCode,
+  useCurrenciesContext,
+} from "../contexts/currencies-context"
 
 export default function () {
   const router = useRouter()
   const [value, setValue] = useState("")
+  const { setCurrency } = useCurrenciesContext()
   return (
     <>
       <Flex
@@ -44,7 +42,7 @@ export default function () {
           align="center"
           bg="transparent.white"
           borderRadius="full"
-          paddingX="0.25rem"
+          paddingX="0.5rem"
           flexGrow={1}
         >
           <Input
@@ -87,23 +85,35 @@ export default function () {
           })
         }}
       >
-        {currencies.map(({ code, name, countries }) => {
+        {currencies.map(({ code, name, countries, symbol }) => {
           const flag = removeAccent(countries[0])
             .replace(/\W/g, "-")
             .toLowerCase()
+          const src = `./${flag}.png`
           return (
             <ListItem
               id={code}
-              data-name={removeAccent(name)}
               key={code}
+              data-name={removeAccent(name)}
               display="flex"
               alignItems="center"
               cursor="pointer"
               _hover={{
                 bg: "transparent.white",
               }}
+              onClick={async () => {
+                const value = await getCurrencyQuoteByCode(code)
+                setCurrency({
+                  code,
+                  name,
+                  symbol,
+                  src,
+                  value,
+                })
+                router.push("/")
+              }}
             >
-              <Image src={`./${flag}.png`} alt={`${name}`} marginX="1rem" />
+              <Image src={src} alt={`${name}`} marginX="1rem" />
               <Stack spacing="0">
                 <Text color="white" fontWeight="semibold">
                   {code}

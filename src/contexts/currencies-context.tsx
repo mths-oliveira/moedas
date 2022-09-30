@@ -7,9 +7,9 @@ interface Context {
 
 export interface Currency {
   code: string
-  flag: string
   name: string
   symbol: string
+  src: string
   value: number
 }
 
@@ -21,23 +21,10 @@ interface Props {
 
 const real: Currency = {
   code: "BRL",
-  flag: "009-brasil.png",
   name: "Real Brasileiro",
   symbol: "R$",
+  src: "./brasil.png",
   value: 1,
-}
-
-export async function getCurrencyQuoteByCode(code: string) {
-  const isDollarQuote = code === "USD"
-  let url = "https://economia.awesomeapi.com.br/json/last/USD-BRL"
-  if (!isDollarQuote) url += `,USD-${code}`
-  const response = await fetch(url)
-  const data = await response.json()
-  const dollarPurchaseValue = Number(data["USDBRL"].bid)
-  if (isDollarQuote) return dollarPurchaseValue
-  const currencySaleValue = Number(data[`USD${code}`].ask)
-  const currencyQuote = dollarPurchaseValue / currencySaleValue
-  return currencyQuote
 }
 
 export function CurrenciesContextProvider({ children }: Props) {
@@ -52,4 +39,17 @@ export function CurrenciesContextProvider({ children }: Props) {
 export function useCurrenciesContext() {
   const context = useContext(currenciesContext)
   return context
+}
+
+export async function getCurrencyQuoteByCode(code: string) {
+  const isDollarQuote = code === "USD"
+  let url = "https://economia.awesomeapi.com.br/json/last/USD-BRL"
+  if (!isDollarQuote) url += `,USD-${code}`
+  const response = await fetch(url)
+  const data = await response.json()
+  const dollarPurchaseValue = Number(data["USDBRL"].bid)
+  if (isDollarQuote) return dollarPurchaseValue
+  const currencySaleValue = Number(data[`USD${code}`].ask)
+  const currencyQuote = dollarPurchaseValue / currencySaleValue
+  return currencyQuote
 }
