@@ -10,33 +10,22 @@ import {
   Text,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
-import { useState } from "react"
 import { Search2Icon, ArrowBackIcon } from "@chakra-ui/icons"
 import { currencies } from "../../currencies.json"
 import { removeAccent } from "../utils/remove-accent"
+import { useState } from "react"
 import { debounce } from "../utils/debounce"
-import {
-  getCurrencyQuoteByCode,
-  useCurrenciesContext,
-} from "../contexts/currencies-context"
 
 interface Currency {
   code: string
+  countries: string[]
   name: string
-  flag: string
+  symbol: string
 }
 
 export default function () {
   const router = useRouter()
-  const { setCurrency } = useCurrenciesContext()
   const [value, setValue] = useState("")
-  function filterCurrenciesByNameOrCode(currency: Currency) {
-    const regexp = new RegExp(removeAccent(value), "i")
-    return (
-      removeAccent(currency.code).match(regexp) ||
-      removeAccent(currency.name).match(regexp)
-    )
-  }
   return (
     <>
       <Flex
@@ -61,6 +50,10 @@ export default function () {
             bg="transparent"
             border="none"
             textTransform="capitalize"
+            placeholder="Pesquise o Nome ou Codigo da Moeda"
+            _placeholder={{
+              textTransform: "initial",
+            }}
             _focus={{
               boxShadow: "none",
             }}
@@ -73,11 +66,34 @@ export default function () {
           <Icon as={Search2Icon} marginX="1rem" />
         </Flex>
       </Flex>
-      <List width="100%">
-        {currencies
-          .filter(filterCurrenciesByNameOrCode)
-          .map(({ code, flag, name, symbol }) => (
+      <List
+        width="100%"
+        ref={(ref) => {
+          if (!ref) return
+          const regexp = RegExp(removeAccent(value), "i")
+          const element: HTMLLIElement = Array.from<any>(ref.childNodes).find(
+            (listItem: HTMLLIElement) => {
+              const id = listItem.id
+              const name = listItem.getAttribute("data-name")
+              const match = name.match(regexp) || id.match(regexp)
+              return match
+            }
+          )
+          if (!element) return
+          const { top } = element.getBoundingClientRect()
+          window.scrollBy({
+            top: top - 80,
+          })
+        }}
+      >
+        {currencies.map(({ code, name, countries }) => {
+          const flag = removeAccent(countries[0])
+            .replace(/\W/g, "-")
+            .toLowerCase()
+          return (
             <ListItem
+              id={code}
+              data-name={removeAccent(name)}
               key={code}
               display="flex"
               alignItems="center"
@@ -85,19 +101,8 @@ export default function () {
               _hover={{
                 bg: "transparent.white",
               }}
-              onClick={async () => {
-                const value = await getCurrencyQuoteByCode(code)
-                setCurrency({
-                  code,
-                  flag,
-                  name,
-                  symbol,
-                  value,
-                })
-                router.push("/")
-              }}
             >
-              <Image src={flag} marginX="1rem" />
+              <Image src={`./${flag}.png`} alt={`${name}`} marginX="1rem" />
               <Stack spacing="0">
                 <Text color="white" fontWeight="semibold">
                   {code}
@@ -105,7 +110,8 @@ export default function () {
                 <Text>{name}</Text>
               </Stack>
             </ListItem>
-          ))}
+          )
+        })}
       </List>
     </>
   )

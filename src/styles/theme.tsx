@@ -25,6 +25,7 @@ export const theme = extendTheme({
       "html, body": {
         color: "gray.light",
         bg: "gray.dark",
+        scrollBehavior: "smooth",
       },
     },
   },
