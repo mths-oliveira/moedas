@@ -1,15 +1,6 @@
-import { RepeatIcon, TriangleDownIcon } from "@chakra-ui/icons"
-import {
-  Box,
-  Center,
-  Flex,
-  Heading,
-  Icon,
-  Image,
-  Stack,
-  Text,
-} from "@chakra-ui/react"
-import { useRouter } from "next/router"
+import Link from "next/link"
+import { RepeatIcon } from "@chakra-ui/icons"
+import { Box, Center, Flex, Icon, Image, Stack, Text } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 
@@ -74,37 +65,33 @@ function formatValue(value: number) {
 
 export default function () {
   const { currency } = useCurrenciesContext()
-  const router = useRouter()
+
   return (
     <>
-      <Flex
-        alignItems="center"
-        marginY="1rem"
-        onClick={() => {
-          router.push("/moedas")
-        }}
-      >
-        <Box position="relative" marginX="1rem">
-          <Image src={currency.src} alt={currency.name} />
-          <Center
-            height="1.5rem"
-            width="1.5rem"
-            borderRadius="full"
-            bg="gray.dark"
-            position="absolute"
-            bottom="0.25rem"
-            right="-0.25rem"
-          >
-            <Icon as={RepeatIcon} />
-          </Center>
-        </Box>
-        <Stack spacing="0">
-          <Text color="white" fontWeight="semibold">
-            {currency.code}
-          </Text>
-          <Text>{currency.name}</Text>
-        </Stack>
-      </Flex>
+      <Link href="/moedas">
+        <Flex alignItems="center" marginY="1rem">
+          <Box position="relative" marginX="1rem">
+            <Image src={currency.src} alt={currency.name} />
+            <Center
+              height="1.5rem"
+              width="1.5rem"
+              borderRadius="full"
+              bg="gray.dark"
+              position="absolute"
+              bottom="0.25rem"
+              right="-0.25rem"
+            >
+              <Icon as={RepeatIcon} />
+            </Center>
+          </Box>
+          <Stack spacing="0">
+            <Text color="white" fontWeight="semibold">
+              {currency.code}
+            </Text>
+            <Text>{currency.name}</Text>
+          </Stack>
+        </Flex>
+      </Link>
 
       <Box display="table" width="100%">
         <TableRow>
