@@ -43,7 +43,8 @@ export default function () {
           height="3rem"
           align="center"
           bg="transparent.white"
-          borderRadius="5px"
+          borderRadius="full"
+          paddingX="0.25rem"
           flexGrow={1}
         >
           <Input
