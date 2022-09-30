@@ -1,0 +1,772 @@
+{
+  "currencies": [
+    {
+      "code": "AFN",
+      "flag": "074-afeganistao.png",
+      "name": "Afghani do Afeganistão",
+      "symbol": "Af"
+    },
+    {
+      "code": "MGA",
+      "flag": "176-madagascar.png",
+      "name": "Ariary Madagascarense",
+      "symbol": "$"
+    },
+    {
+      "code": "THB",
+      "flag": "028-tailandia.png",
+      "name": "Baht Tailandês",
+      "symbol": "฿"
+    },
+    {
+      "code": "PAB",
+      "flag": "046-panama.png",
+      "name": "Balboa Panamenho",
+      "symbol": "B/."
+    },
+    {
+      "code": "ETB",
+      "flag": "103-etiopia.png",
+      "name": "Birr Etíope",
+      "symbol": "$"
+    },
+    {
+      "code": "BOB",
+      "flag": "037-bolivia.png",
+      "name": "Boliviano",
+      "symbol": "Bs."
+    },
+    {
+      "code": "VEF",
+      "flag": "054-venezuela.png",
+      "name": "Bolívar Venezuelano",
+      "symbol": "Bs F"
+    },
+    {
+      "code": "GHS",
+      "flag": "094-gana.png",
+      "name": "Cedi Ganês",
+      "symbol": "₵"
+    },
+    {
+      "code": "CRC",
+      "flag": "022-costa-rica.png",
+      "name": "Colón Costarriquenho",
+      "symbol": "₡"
+    },
+    {
+      "code": "CZK",
+      "flag": "042-republica-tcheca.png",
+      "name": "Coroa Checa",
+      "symbol": "Kč"
+    },
+    {
+      "code": "DKK",
+      "flag": "062-dinamarca.png",
+      "name": "Coroa Dinamarquesa",
+      "symbol": "kr"
+    },
+    {
+      "code": "ISK",
+      "flag": "101-islandia.png",
+      "name": "Coroa Islandesa",
+      "symbol": "Kr"
+    },
+    {
+      "code": "NOK",
+      "flag": "068-noruega.png",
+      "name": "Coroa Norueguesa",
+      "symbol": "kr"
+    },
+    {
+      "code": "SEK",
+      "flag": "050-suecia.png",
+      "name": "Coroa Sueca",
+      "symbol": "kr"
+    },
+    {
+      "code": "NIO",
+      "flag": "065-nicaragua.png",
+      "name": "Córdoba Nicaraguense",
+      "symbol": "C$"
+    },
+    {
+      "code": "GMD",
+      "flag": "171-gambia.png",
+      "name": "Dalasi da Gâmbia",
+      "symbol": "D"
+    },
+    {
+      "code": "MKD",
+      "flag": "122-republica-da-macedonia.png",
+      "name": "Denar Macedônio",
+      "symbol": "ден"
+    },
+    {
+      "code": "DZD",
+      "flag": "119-argelia.png",
+      "name": "Dinar Argelino",
+      "symbol": "د.ج"
+    },
+    {
+      "code": "IQD",
+      "flag": "071-iraque.png",
+      "name": "Dinar Iraquiano",
+      "symbol": "ع.د"
+    },
+    {
+      "code": "JOD",
+      "flag": "095-jordania.png",
+      "name": "Dinar Jordaniano",
+      "symbol": "د.ا"
+    },
+    {
+      "code": "KWD",
+      "flag": "193-kuwait.png",
+      "name": "Dinar Kuwaitiano",
+      "symbol": "د.ك"
+    },
+    {
+      "code": "LYD",
+      "flag": "141-libia.png",
+      "name": "Dinar Líbio",
+      "symbol": "ل.د"
+    },
+    {
+      "code": "RSD",
+      "flag": "036-servia.png",
+      "name": "Dinar Sérvio",
+      "symbol": "din"
+    },
+    {
+      "code": "TND",
+      "flag": "083-tunisia.png",
+      "name": "Dinar Tunisiano",
+      "symbol": "د.ت"
+    },
+    {
+      "code": "BHD",
+      "flag": "113-bahrein.png",
+      "name": "Dinar do Bahrein",
+      "symbol": "ب.د"
+    },
+    {
+      "code": "MAD",
+      "flag": "057-marrocos.png",
+      "name": "Dirham Marroquino",
+      "symbol": "د.م."
+    },
+    {
+      "code": "AED",
+      "flag": "032-emirados-arabes-unidos.png",
+      "name": "Dirham dos Emirados",
+      "symbol": "د.إ"
+    },
+    {
+      "code": "STD",
+      "flag": "248-sao-tome-e-principe.png",
+      "name": "Dobra São Tomé/Príncipe",
+      "symbol": "$"
+    },
+    {
+      "code": "VND",
+      "flag": "034-vietnam.png",
+      "name": "Dong Vietnamita",
+      "symbol": "₫"
+    },
+    {
+      "code": "AMD",
+      "flag": "081-armenia.png",
+      "name": "Dram Armênio",
+      "symbol": "Դ"
+    },
+    {
+      "code": "USD",
+      "flag": "001-estados-unidos.png",
+      "name": "Dólar Americano",
+      "symbol": "$"
+    },
+    {
+      "code": "AUD",
+      "flag": "007-australia.png",
+      "name": "Dólar Australiano",
+      "symbol": "$"
+    },
+    {
+      "code": "CAD",
+      "flag": "015-canada.png",
+      "name": "Dólar Canadense",
+      "symbol": "$"
+    },
+    {
+      "code": "JMD",
+      "flag": "123-jamaica.png",
+      "name": "Dólar Jamaicano",
+      "symbol": "$"
+    },
+    {
+      "code": "NAD",
+      "flag": "146-namibia.png",
+      "name": "Dólar Namíbio",
+      "symbol": "$"
+    },
+    {
+      "code": "NZD",
+      "flag": "031-nova-zelandia.png",
+      "name": "Dólar Neozelandês",
+      "symbol": "$"
+    },
+    {
+      "code": "TWD",
+      "flag": "060-taiwan.png",
+      "name": "Dólar Taiwanês",
+      "symbol": "$"
+    },
+    {
+      "code": "BSD",
+      "flag": "164-bahamas.png",
+      "name": "Dólar das Bahamas",
+      "symbol": "$"
+    },
+    {
+      "code": "BBD",
+      "flag": "138-barbados.png",
+      "name": "Dólar de Barbados",
+      "symbol": "$"
+    },
+    {
+      "code": "BZD",
+      "flag": "111-belize.png",
+      "name": "Dólar de Belize",
+      "symbol": "$"
+    },
+    {
+      "code": "BND",
+      "flag": "131-brunei.png",
+      "name": "Dólar de Brunei",
+      "symbol": "$"
+    },
+    {
+      "code": "SGD",
+      "flag": "039-singapura.png",
+      "name": "Dólar de Cingapura",
+      "symbol": "$"
+    },
+    {
+      "code": "FJD",
+      "flag": "132-fiji.png",
+      "name": "Dólar de Fiji",
+      "symbol": "$"
+    },
+    {
+      "code": "TTD",
+      "flag": "139-trindade-e-tobago.png",
+      "name": "Dólar de Trinidade",
+      "symbol": "$"
+    },
+    {
+      "code": "XCD",
+      "flag": "112-antigua-e-barbuda.png",
+      "name": "Dólar do Caribe Oriental",
+      "symbol": "$"
+    },
+    {
+      "code": "EUR",
+      "flag": "013-uniao-europeia.png",
+      "name": "Euro",
+      "symbol": "€"
+    },
+    {
+      "code": "HUF",
+      "flag": "064-hungria.png",
+      "name": "Florim Húngaro",
+      "symbol": "Ft"
+    },
+    {
+      "code": "BIF",
+      "flag": "188-burundi.png",
+      "name": "Franco Burundinense",
+      "symbol": "₣"
+    },
+    {
+      "code": "XAF",
+      "flag": "102-camaroes.png",
+      "name": "Franco CFA Central",
+      "symbol": "₣"
+    },
+    {
+      "code": "XOF",
+      "flag": "170-benin.png",
+      "name": "Franco CFA Ocidental",
+      "symbol": "$"
+    },
+    {
+      "code": "KMF",
+      "flag": "201-comores.png",
+      "name": "Franco Comorense",
+      "symbol": "$"
+    },
+    {
+      "code": "RWF",
+      "flag": "117-ruanda.png",
+      "name": "Franco Ruandês",
+      "symbol": "₣"
+    },
+    {
+      "code": "CHF",
+      "flag": "047-suica.png",
+      "name": "Franco Suíço",
+      "symbol": "₣"
+    },
+    {
+      "code": "GNF",
+      "flag": "199-guine-equatorial.png",
+      "name": "Franco de Guiné",
+      "symbol": "₣"
+    },
+    {
+      "code": "DJF",
+      "flag": "205-djubouti.png",
+      "name": "Franco do Djubouti",
+      "symbol": "₣"
+    },
+    {
+      "code": "HTG",
+      "flag": "183-haiti.png",
+      "name": "Gourde Haitiano",
+      "symbol": "G"
+    },
+    {
+      "code": "PYG",
+      "flag": "056-paraguai.png",
+      "name": "Guarani Paraguaio",
+      "symbol": "₲"
+    },
+    {
+      "code": "UAH",
+      "flag": "023-ucrania.png",
+      "name": "Hryvinia Ucraniana",
+      "symbol": "₴"
+    },
+    {
+      "code": "JPY",
+      "flag": "018-japao.png",
+      "name": "Iene Japonês",
+      "symbol": "¥"
+    },
+    {
+      "code": "PGK",
+      "flag": "154-papua-nova-guine.png",
+      "name": "Kina Papua-Nova Guiné",
+      "symbol": "K"
+    },
+    {
+      "code": "LAK",
+      "flag": "096-laos.png",
+      "name": "Kip Laosiano",
+      "symbol": "₭"
+    },
+    {
+      "code": "HRK",
+      "flag": "069-croacia.png",
+      "name": "Kuna Croata",
+      "symbol": "Kn"
+    },
+    {
+      "code": "MWK",
+      "flag": "174-malawi.png",
+      "name": "Kwacha Malauiana",
+      "symbol": "MK"
+    },
+    {
+      "code": "AOA",
+      "flag": "136-angola.png",
+      "name": "Kwanza Angolano",
+      "symbol": "Kz"
+    },
+    {
+      "code": "MMK",
+      "flag": "104-myanmar.png",
+      "name": "Kyat de Mianmar",
+      "symbol": "K"
+    },
+    {
+      "code": "GEL",
+      "flag": "106-georgia.png",
+      "name": "Lari Georgiano",
+      "symbol": "ლ"
+    },
+    {
+      "code": "ALL",
+      "flag": "092-albania.png",
+      "name": "Lek Albanês",
+      "symbol": "L"
+    },
+    {
+      "code": "HNL",
+      "flag": "053-honduras.png",
+      "name": "Lempira Hondurenha",
+      "symbol": "L"
+    },
+    {
+      "code": "MDL",
+      "flag": "099-moldavia.png",
+      "name": "Leu Moldavo",
+      "symbol": "L"
+    },
+    {
+      "code": "RON",
+      "flag": "072-romenia.png",
+      "name": "Leu Romeno",
+      "symbol": "L"
+    },
+    {
+      "code": "BGN",
+      "flag": "082-bulgaria.png",
+      "name": "Lev Búlgaro",
+      "symbol": "лв"
+    },
+    {
+      "code": "EGP",
+      "flag": "026-egito.png",
+      "name": "Libra Egípcia",
+      "symbol": "£"
+    },
+    {
+      "code": "GBP",
+      "flag": "002-reino-unido.png",
+      "name": "Libra Esterlina",
+      "symbol": "£"
+    },
+    {
+      "code": "LBP",
+      "flag": "090-libano.png",
+      "name": "Libra Libanesa",
+      "symbol": "ل.ل"
+    },
+    {
+      "code": "SDG",
+      "flag": "159-sudao-do-sul.png",
+      "name": "Libra Sudanesa",
+      "symbol": "£"
+    },
+    {
+      "code": "SYP",
+      "flag": "120-siria.png",
+      "name": "Libra Síria",
+      "symbol": "ل.س"
+    },
+    {
+      "code": "SZL",
+      "flag": "189-suazilandia.png",
+      "name": "Lilangeni Suazilandês",
+      "symbol": "L"
+    },
+    {
+      "code": "LSL",
+      "flag": "175-lesoto.png",
+      "name": "Loti do Lesoto",
+      "symbol": "L"
+    },
+    {
+      "code": "AZN",
+      "flag": "088-azerbaijao.png",
+      "name": "Manat Azeri",
+      "symbol": "ман"
+    },
+    {
+      "code": "MZN",
+      "flag": "129-mocambique.png",
+      "name": "Metical de Moçambique",
+      "symbol": "MTn"
+    },
+    {
+      "code": "MNT",
+      "flag": "097-mongolia.png",
+      "name": "Mongolian Tugrik",
+      "symbol": "₮"
+    },
+    {
+      "code": "NGN",
+      "flag": "150-nigeria.png",
+      "name": "Naira Nigeriana",
+      "symbol": "₦"
+    },
+    {
+      "code": "TRY",
+      "flag": "030-turquia.png",
+      "name": "Nova Lira Turca",
+      "symbol": "₤"
+    },
+    {
+      "code": "ILS",
+      "flag": "051-israel.png",
+      "name": "Novo Shekel Israelense",
+      "symbol": "₪"
+    },
+    {
+      "code": "MRO",
+      "flag": "179-mauritania.png",
+      "name": "Ouguiya Mauritana",
+      "symbol": "$"
+    },
+    {
+      "code": "ARS",
+      "flag": "008-argentina.png",
+      "name": "Peso Argentino",
+      "symbol": "$"
+    },
+    {
+      "code": "CLP",
+      "flag": "019-chile.png",
+      "name": "Peso Chileno",
+      "symbol": "$"
+    },
+    {
+      "code": "COP",
+      "flag": "017-colombia.png",
+      "name": "Peso Colombiano",
+      "symbol": "$"
+    },
+    {
+      "code": "CUP",
+      "flag": "086-cuba.png",
+      "name": "Peso Cubano",
+      "symbol": "$"
+    },
+    {
+      "code": "DOP",
+      "flag": "040-republica-dominicana.png",
+      "name": "Peso Dominicano",
+      "symbol": "$"
+    },
+    {
+      "code": "PHP",
+      "flag": "038-filipinas.png",
+      "name": "Peso Filipino",
+      "symbol": "₱"
+    },
+    {
+      "code": "MXN",
+      "flag": "004-mexico.png",
+      "name": "Peso Mexicano",
+      "symbol": "$"
+    },
+    {
+      "code": "UYU",
+      "flag": "041-uruguai.png",
+      "name": "Peso Uruguaio",
+      "symbol": "$"
+    },
+    {
+      "code": "BWP",
+      "flag": "155-botswana.png",
+      "name": "Pula de Botswana",
+      "symbol": "P"
+    },
+    {
+      "code": "GTQ",
+      "flag": "021-guatemala.png",
+      "name": "Quetzal Guatemalteco",
+      "symbol": "Q"
+    },
+    {
+      "code": "ZAR",
+      "flag": "058-africa-do-sul.png",
+      "name": "Rand Sul-Africano",
+      "symbol": "R"
+    },
+    {
+      "code": "BRL",
+      "flag": "009-brasil.png",
+      "name": "Real Brasileiro",
+      "symbol": "R$"
+    },
+    {
+      "code": "QAR",
+      "flag": "049-catar.png",
+      "name": "Rial Catarense",
+      "symbol": "ر.ق"
+    },
+    {
+      "code": "IRR",
+      "flag": "052-iran.png",
+      "name": "Rial Iraniano",
+      "symbol": "﷼"
+    },
+    {
+      "code": "OMR",
+      "flag": "196-ilhas-salomao.png",
+      "name": "Rial Omanense",
+      "symbol": "ر.ع."
+    },
+    {
+      "code": "KHR",
+      "flag": "066-camboja.png",
+      "name": "Riel Cambojano",
+      "symbol": "៛"
+    },
+    {
+      "code": "MYR",
+      "flag": "169-malasia.png",
+      "name": "Ringgit Malaio",
+      "symbol": "RM"
+    },
+    {
+      "code": "YER",
+      "flag": "145-iemen.png",
+      "name": "Riyal Iemenita",
+      "symbol": "﷼"
+    },
+    {
+      "code": "SAR",
+      "flag": "055-arabia-saudita.png",
+      "name": "Riyal Saudita",
+      "symbol": "ر.س"
+    },
+    {
+      "code": "BYN",
+      "flag": "077-bielorrussia.png",
+      "name": "Rublo Bielorrusso",
+      "symbol": "Br"
+    },
+    {
+      "code": "RUB",
+      "flag": "077-bielorrussia.png",
+      "name": "Rublo Russo",
+      "symbol": "р."
+    },
+    {
+      "code": "MVR",
+      "flag": "166-maldivas.png",
+      "name": "Rufiyaa Maldiva",
+      "symbol": "ރ."
+    },
+    {
+      "code": "IDR",
+      "flag": "035-indonesia.png",
+      "name": "Rupia Indonésia",
+      "symbol": "Rp"
+    },
+    {
+      "code": "INR",
+      "flag": "003-india.png",
+      "name": "Rúpia Indiana",
+      "symbol": "₹"
+    },
+    {
+      "code": "MUR",
+      "flag": "142-mauricio.png",
+      "name": "Rúpia Mauriciana",
+      "symbol": "₨"
+    },
+    {
+      "code": "NPR",
+      "flag": "114-nepal.png",
+      "name": "Rúpia Nepalesa",
+      "symbol": "₨"
+    },
+    {
+      "code": "PKR",
+      "flag": "135-paquistao.png",
+      "name": "Rúpia Paquistanesa",
+      "symbol": "₨"
+    },
+    {
+      "code": "LKR",
+      "flag": "043-sri-lanka.png",
+      "name": "Rúpia de Sri Lanka",
+      "symbol": "Rs"
+    },
+    {
+      "code": "SCR",
+      "flag": "195-seychelles.png",
+      "name": "Rúpias de Seicheles",
+      "symbol": "₨"
+    },
+    {
+      "code": "KES",
+      "flag": "073-quenia.png",
+      "name": "Shilling Queniano",
+      "symbol": "Sh"
+    },
+    {
+      "code": "SOS",
+      "flag": "156-somalia.png",
+      "name": "Shilling Somaliano",
+      "symbol": "Sh"
+    },
+    {
+      "code": "TZS",
+      "flag": "126-tanzania.png",
+      "name": "Shilling Tanzaniano",
+      "symbol": "Sh"
+    },
+    {
+      "code": "UGX",
+      "flag": "121-uganda.png",
+      "name": "Shilling Ugandês",
+      "symbol": "Sh"
+    },
+    {
+      "code": "PEN",
+      "flag": "029-peru.png",
+      "name": "Sol do Peru",
+      "symbol": "S/."
+    },
+    {
+      "code": "KGS",
+      "flag": "116-quirguistao.png",
+      "name": "Som Quirguistanês",
+      "symbol": "$"
+    },
+    {
+      "code": "UZS",
+      "flag": "063-uzbequistao.png",
+      "name": "Som Uzbequistanês",
+      "symbol": "$"
+    },
+    {
+      "code": "TJS",
+      "flag": "118-tajiquistao.png",
+      "name": "Somoni do Tajiquistão",
+      "symbol": "ЅМ"
+    },
+    {
+      "code": "BDT",
+      "flag": "177-bangladesh.png",
+      "name": "Taka de Bangladesh",
+      "symbol": "৳"
+    },
+    {
+      "code": "KZT",
+      "flag": "045-cazaquistao.png",
+      "name": "Tengue Cazaquistanês",
+      "symbol": "〒"
+    },
+    {
+      "code": "VUV",
+      "flag": "181-vanuatu.png",
+      "name": "Vatu de Vanuatu",
+      "symbol": "Vt"
+    },
+    {
+      "code": "KRW",
+      "flag": "010-coreia-do-sul.png",
+      "name": "Won Sul-Coreano",
+      "symbol": "₩"
+    },
+    {
+      "code": "CNY",
+      "flag": "016-china.png",
+      "name": "Yuan Chinês",
+      "symbol": "¥"
+    },
+    {
+      "code": "PLN",
+      "flag": "033-polonia.png",
+      "name": "Zlóti Polonês",
+      "symbol": "zł"
+    }
+  ]
+}
