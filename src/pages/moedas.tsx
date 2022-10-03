@@ -40,7 +40,7 @@ export default function () {
         <Flex
           height="3rem"
           align="center"
-          bg="transparent.white"
+          bg="secondary"
           borderRadius="full"
           paddingX="0.5rem"
           flexGrow={1}
@@ -99,7 +99,7 @@ export default function () {
               alignItems="center"
               cursor="pointer"
               _hover={{
-                bg: "transparent.white",
+                bg: "secondary",
               }}
               onClick={async () => {
                 const value = await getCurrencyQuoteByCode(code)
@@ -121,7 +121,7 @@ export default function () {
               />
               <Stack spacing="0">
                 <Text fontWeight="bold">{code}</Text>
-                <Text opacity="0.8">{name}</Text>
+                <Text>{name}</Text>
               </Stack>
             </ListItem>
           )

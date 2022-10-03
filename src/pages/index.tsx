@@ -41,7 +41,7 @@ function TableRow({ children, ...rest }: TableRowProps) {
       display="table-row"
       padding="0.75rem 1rem"
       _hover={{
-        bg: "transparent.white",
+        bg: "secondary",
       }}
       sx={{
         "&>div": {
@@ -91,7 +91,11 @@ export default function () {
         <Link href="/moedas">
           <Flex alignItems="center" marginY="1rem">
             <Box position="relative" marginX="1rem">
-              <Image src={currency.src} alt={currency.name} />
+              <Image
+                src={currency.src}
+                alt={currency.name}
+                filter="drop-shadow(0 0 8px rgba(0,0,0,0.25))"
+              />
               <Center
                 height="1.5rem"
                 width="1.5rem"
@@ -112,8 +116,10 @@ export default function () {
         </Link>
         <Center
           as="button"
-          width="4rem"
-          height="4rem"
+          bg="secondary"
+          padding="1rem"
+          margin="1rem"
+          borderRadius="8px"
           onClick={toggleColorMode}
         >
           <Icon

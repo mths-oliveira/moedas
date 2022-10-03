@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react"
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 
 interface Context {
   currency: Currency
@@ -29,6 +35,17 @@ const real: Currency = {
 
 export function CurrenciesContextProvider({ children }: Props) {
   const [currency, setCurrency] = useState<Currency>(real)
+  useEffect(() => {
+    const currency: Currency = JSON.parse(localStorage.getItem("currency"))
+    if (!currency) return
+    getCurrencyQuoteByCode(currency.code).then((value) => {
+      currency.value = value
+      setCurrency(currency)
+    })
+  }, [])
+  useEffect(() => {
+    localStorage.setItem("currency", JSON.stringify(currency))
+  }, [currency])
   return (
     <currenciesContext.Provider value={{ currency, setCurrency }}>
       {children}
