@@ -21,6 +21,7 @@ export const theme = extendTheme({
     heading: `'Montserrat', sans-serif`,
     body: `'Montserrat', sans-serif`,
   },
+
   breakpoints: {
     sm: "40em",
     md: "52em",
@@ -32,7 +33,7 @@ export const theme = extendTheme({
       "html, body": {
         color: "text",
         bg: "primary",
-
+        fontWeight: "500",
         scrollBehavior: "smooth",
       },
     },

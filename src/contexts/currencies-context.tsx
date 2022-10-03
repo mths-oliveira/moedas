@@ -15,7 +15,7 @@ export interface Currency {
   code: string
   name: string
   symbol: string
-  src: string
+  countries: string[]
   value: number
 }
 
@@ -29,8 +29,8 @@ const real: Currency = {
   code: "BRL",
   name: "Real Brasileiro",
   symbol: "R$",
-  src: "./brasil.png",
   value: 1,
+  countries: ["Brasil"],
 }
 
 export function CurrenciesContextProvider({ children }: Props) {

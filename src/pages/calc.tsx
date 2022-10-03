@@ -5,10 +5,14 @@ import {
   Center,
   Flex,
   Icon,
+  Image,
+  Stack,
+  Text,
   BoxProps,
   useColorMode,
+  Checkbox,
 } from "@chakra-ui/react"
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 import { CurrencyProfile } from "../components/currency-profile"
 
@@ -33,43 +37,20 @@ const products = {
   },
 }
 
-function TableRow({ children, ...rest }: TableRowProps) {
-  return (
-    <Box
-      display="table-row"
-      padding="0.75rem 1rem"
-      _hover={{
-        bg: "secondary",
-      }}
-      sx={{
-        "&>div": {
-          display: "table-cell",
-          paddingY: "0.75rem",
-        },
-        "&>:first-child": {
-          paddingX: "1rem",
-          width: "100%",
-        },
-        "&>:not(:first-child)": {
-          fontWeight: "bold",
-          whiteSpace: "nowrap",
-        },
-        "&>:last-child": {
-          paddingRight: "1rem",
-          paddingLeft: "0.25rem",
-          textAlign: "end",
-        },
-      }}
-      {...rest}
-    >
-      {children}
-    </Box>
-  )
+const selectedProducts = {
+  wol: true,
+  mp_wol: false,
+  live: false,
+  mp_live: false,
 }
 
 export default function () {
   const { toggleColorMode, colorMode } = useColorMode()
   const { currency } = useCurrenciesContext()
+  const [_, setBool] = useState(true)
+  function refresh() {
+    setBool((bool) => !bool)
+  }
   function formatCurrency(value: number) {
     if (currency.code !== "BRL") {
       value = value / currency.value
@@ -114,37 +95,41 @@ export default function () {
           />
         </Center>
       </Flex>
-      <Box display="table" width="100%">
-        <TableRow>
-          <Box>Wol</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.wol.monthlyPayment)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Multi Wol</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.wol.multiprofile.monthlyPayment)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Live - Matrícula</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.enrolmentFee)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Live - Mensalidade</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.monthlyPayment)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Multi Live - Matrícula</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.multiprofile.enrolmentFee)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Multi Live - Mensalidade</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.multiprofile.monthlyPayment)}</Box>
-        </TableRow>
+      <Box as="form" paddingX="1rem">
+        <Checkbox
+          isChecked={Object.values(selectedProducts).every(Boolean)}
+          onChange={(e) => {
+            const input = e.target as HTMLInputElement
+            Object.keys(selectedProducts).forEach((product) => {
+              selectedProducts[product] = input.checked
+            })
+            refresh()
+          }}
+        >
+          Strike
+        </Checkbox>
+        <Stack
+          spacing="1rem"
+          margin="1rem 0 0 1.5rem"
+          onChange={(e) => {
+            const input = e.target as HTMLInputElement
+            selectedProducts[input.value] = input.checked
+            refresh()
+          }}
+        >
+          <Checkbox value="wol" isChecked={selectedProducts.wol}>
+            Wol
+          </Checkbox>
+          <Checkbox value="mp_wol" isChecked={selectedProducts.mp_wol}>
+            Multi Wol
+          </Checkbox>
+          <Checkbox value="live" isChecked={selectedProducts.live}>
+            Live{" "}
+          </Checkbox>
+          <Checkbox value="mp_live" isChecked={selectedProducts.mp_live}>
+            Multi Live{" "}
+          </Checkbox>
+        </Stack>
       </Box>
     </>
   )

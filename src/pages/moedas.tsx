@@ -1,4 +1,5 @@
 import {
+  Box,
   Center,
   Flex,
   Icon,
@@ -6,19 +7,19 @@ import {
   Input,
   List,
   ListItem,
-  Stack,
   Text,
 } from "@chakra-ui/react"
 import { useRouter } from "next/router"
 import { Search2Icon, ArrowBackIcon } from "@chakra-ui/icons"
 import { currencies } from "../../currencies.json"
 import { removeAccent } from "../utils/remove-accent"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import { debounce } from "../utils/debounce"
 import {
   getCurrencyQuoteByCode,
   useCurrenciesContext,
 } from "../contexts/currencies-context"
+import { CurrencyProfile } from "../components/currency-profile"
 
 export default function () {
   const router = useRouter()
@@ -85,16 +86,12 @@ export default function () {
           })
         }}
       >
-        {currencies.map(({ code, name, countries, symbol }) => {
-          const flag = removeAccent(countries[0])
-            .replace(/\W/g, "-")
-            .toLowerCase()
-          const src = `./${flag}.png`
+        {currencies.map((currency) => {
           return (
             <ListItem
-              id={code}
-              key={code}
-              data-name={removeAccent(name)}
+              id={currency.code}
+              key={currency.code}
+              data-name={removeAccent(currency.name)}
               display="flex"
               alignItems="center"
               cursor="pointer"
@@ -102,27 +99,15 @@ export default function () {
                 bg: "secondary",
               }}
               onClick={async () => {
-                const value = await getCurrencyQuoteByCode(code)
+                const value = await getCurrencyQuoteByCode(currency.code)
                 setCurrency({
-                  code,
-                  name,
-                  symbol,
-                  src,
+                  ...currency,
                   value,
                 })
-                router.push("/")
+                router.back()
               }}
             >
-              <Image
-                src={src}
-                alt={`${name}`}
-                marginX="1rem"
-                filter="drop-shadow(0 0 8px rgba(0,0,0,0.25))"
-              />
-              <Stack spacing="0">
-                <Text fontWeight="bold">{code}</Text>
-                <Text>{name}</Text>
-              </Stack>
+              <CurrencyProfile currency={currency} />
             </ListItem>
           )
         })}
