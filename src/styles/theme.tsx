@@ -1,13 +1,20 @@
 import { extendTheme } from "@chakra-ui/react"
 
 export const theme = extendTheme({
-  colors: {
-    gray: {
-      dark: "#282828",
-      light: "#AAA",
-    },
-    transparent: {
-      white: "rgba(255,255,255,0.1)",
+  semanticTokens: {
+    colors: {
+      text: {
+        default: "#565857",
+        _dark: "#FFF",
+      },
+      primary: {
+        default: "#FFF",
+        _dark: "#282828",
+      },
+      secondary: {
+        default: "#F0F0F0",
+        _dark: "#000",
+      },
     },
   },
   fonts: {
@@ -23,8 +30,9 @@ export const theme = extendTheme({
   styles: {
     global: {
       "html, body": {
-        color: "gray.light",
-        bg: "gray.dark",
+        color: "text",
+        bg: "primary",
+
         scrollBehavior: "smooth",
       },
     },

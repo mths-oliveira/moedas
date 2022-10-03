@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { RepeatIcon } from "@chakra-ui/icons"
+import { MoonIcon, RepeatIcon, SunIcon } from "@chakra-ui/icons"
 import {
   Box,
   Center,
@@ -8,9 +8,8 @@ import {
   Image,
   Stack,
   Text,
-  Tab,
-  Tooltip,
   BoxProps,
+  useColorMode,
 } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
@@ -41,11 +40,10 @@ function TableRow({ children, ...rest }: TableRowProps) {
     <Box
       display="table-row"
       padding="0.75rem 1rem"
-      color="white"
+      _hover={{
+        bg: "transparent.white",
+      }}
       sx={{
-        "&:nth-child(odd)": {
-          bg: "transparent.white",
-        },
         "&>div": {
           display: "table-cell",
           paddingY: "0.75rem",
@@ -72,6 +70,7 @@ function TableRow({ children, ...rest }: TableRowProps) {
 }
 
 export default function () {
+  const { toggleColorMode, colorMode } = useColorMode()
   const { currency } = useCurrenciesContext()
   function formatCurrency(value: number) {
     if (currency.code !== "BRL") {
@@ -88,30 +87,41 @@ export default function () {
   }
   return (
     <>
-      <Link href="/moedas">
-        <Flex alignItems="center" marginY="1rem">
-          <Box position="relative" marginX="1rem">
-            <Image src={currency.src} alt={currency.name} />
-            <Center
-              height="1.5rem"
-              width="1.5rem"
-              borderRadius="full"
-              bg="gray.dark"
-              position="absolute"
-              bottom="0.25rem"
-              right="-0.25rem"
-            >
-              <Icon as={RepeatIcon} />
-            </Center>
-          </Box>
-          <Stack spacing="0">
-            <Text color="white" fontWeight="semibold">
-              {currency.code}
-            </Text>
-            <Text>{currency.name}</Text>
-          </Stack>
-        </Flex>
-      </Link>
+      <Flex alignItems="center" justifyContent="space-between">
+        <Link href="/moedas">
+          <Flex alignItems="center" marginY="1rem">
+            <Box position="relative" marginX="1rem">
+              <Image src={currency.src} alt={currency.name} />
+              <Center
+                height="1.5rem"
+                width="1.5rem"
+                borderRadius="full"
+                position="absolute"
+                bottom="0.25rem"
+                right="-0.25rem"
+                bg="primary"
+              >
+                <Icon as={RepeatIcon} />
+              </Center>
+            </Box>
+            <Stack spacing="0">
+              <Text fontWeight="bold">{currency.code}</Text>
+              <Text>{currency.name}</Text>
+            </Stack>
+          </Flex>
+        </Link>
+        <Center
+          as="button"
+          width="4rem"
+          height="4rem"
+          onClick={toggleColorMode}
+        >
+          <Icon
+            as={colorMode === "dark" ? MoonIcon : SunIcon}
+            fontSize="1.25rem"
+          />
+        </Center>
+      </Flex>
 
       <Box display="table" width="100%">
         <TableRow>

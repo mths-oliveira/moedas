@@ -27,12 +27,12 @@ export default function () {
   return (
     <>
       <Flex
-        color="white"
-        bg="gray.dark"
+        bg="primary"
         align="center"
         padding="1rem"
         position="sticky"
         top="0"
+        zIndex={1}
       >
         <Center as="button" height="3rem" width="4rem" onClick={router.back}>
           <Icon as={ArrowBackIcon} fontSize="1.5rem" />
@@ -113,12 +113,15 @@ export default function () {
                 router.push("/")
               }}
             >
-              <Image src={src} alt={`${name}`} marginX="1rem" />
+              <Image
+                src={src}
+                alt={`${name}`}
+                marginX="1rem"
+                filter="drop-shadow(0 0 8px rgba(0,0,0,0.25))"
+              />
               <Stack spacing="0">
-                <Text color="white" fontWeight="semibold">
-                  {code}
-                </Text>
-                <Text>{name}</Text>
+                <Text fontWeight="bold">{code}</Text>
+                <Text opacity="0.8">{name}</Text>
               </Stack>
             </ListItem>
           )
