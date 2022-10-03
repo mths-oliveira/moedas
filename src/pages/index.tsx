@@ -1,10 +1,21 @@
 import Link from "next/link"
 import { RepeatIcon } from "@chakra-ui/icons"
-import { Box, Center, Flex, Icon, Image, Stack, Text } from "@chakra-ui/react"
+import {
+  Box,
+  Center,
+  Flex,
+  Icon,
+  Image,
+  Stack,
+  Text,
+  Tab,
+  Tooltip,
+  BoxProps,
+} from "@chakra-ui/react"
 import { ReactNode } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 
-interface TableRowProps {
+interface TableRowProps extends BoxProps {
   children: ReactNode
 }
 
@@ -25,15 +36,16 @@ const products = {
   },
 }
 
-function TableRow({ children }: TableRowProps) {
+function TableRow({ children, ...rest }: TableRowProps) {
   return (
     <Box
       display="table-row"
       padding="0.75rem 1rem"
-      _hover={{
-        bg: "transparent.white",
-      }}
+      color="white"
       sx={{
+        "&:nth-child(odd)": {
+          bg: "transparent.white",
+        },
         "&>div": {
           display: "table-cell",
           paddingY: "0.75rem",
@@ -44,7 +56,7 @@ function TableRow({ children }: TableRowProps) {
         },
         "&>:not(:first-child)": {
           fontWeight: "bold",
-          color: "white",
+          whiteSpace: "nowrap",
         },
         "&>:last-child": {
           paddingRight: "1rem",
@@ -52,20 +64,28 @@ function TableRow({ children }: TableRowProps) {
           textAlign: "end",
         },
       }}
+      {...rest}
     >
       {children}
     </Box>
   )
 }
 
-function formatValue(value: number) {
-  const valueFormatted = value.toFixed(2).replace(".", ",")
-  return valueFormatted
-}
-
 export default function () {
   const { currency } = useCurrenciesContext()
-
+  function formatCurrency(value: number) {
+    if (currency.code !== "BRL") {
+      value = value / currency.value
+    }
+    const currencyValue = value
+      .toLocaleString("pt-BR", {
+        style: "currency",
+        currency: currency.code,
+        currencyDisplay: "code",
+      })
+      .replace(currency.code, "")
+    return currencyValue
+  }
   return (
     <>
       <Link href="/moedas">
@@ -95,48 +115,34 @@ export default function () {
 
       <Box display="table" width="100%">
         <TableRow>
-          <Box>WOL</Box>
+          <Box>Wol</Box>
           <Box>{currency.symbol}</Box>
-          <Box>{formatValue(products.wol.monthlyPayment / currency.value)}</Box>
+          <Box>{formatCurrency(products.wol.monthlyPayment)}</Box>
         </TableRow>
         <TableRow>
-          <Box>MP WOL</Box>
+          <Box>Multi Wol</Box>
           <Box>{currency.symbol}</Box>
-          <Box>
-            {formatValue(
-              products.wol.multiprofile.monthlyPayment / currency.value
-            )}
-          </Box>
+          <Box>{formatCurrency(products.wol.multiprofile.monthlyPayment)}</Box>
         </TableRow>
         <TableRow>
-          <Box>LIVE - Matrícula</Box>
+          <Box>Live - Matrícula</Box>
           <Box>{currency.symbol}</Box>
-          <Box>{formatValue(products.live.enrolmentFee / currency.value)}</Box>
+          <Box>{formatCurrency(products.live.enrolmentFee)}</Box>
         </TableRow>
         <TableRow>
-          <Box>LIVE - Mensalidade</Box>
+          <Box>Live - Mensalidade</Box>
           <Box>{currency.symbol}</Box>
-          <Box>
-            {formatValue(products.live.monthlyPayment / currency.value)}
-          </Box>
+          <Box>{formatCurrency(products.live.monthlyPayment)}</Box>
         </TableRow>
         <TableRow>
-          <Box>MP LIVE - Matrícula</Box>
+          <Box>Multi Live - Matrícula</Box>
           <Box>{currency.symbol}</Box>
-          <Box>
-            {formatValue(
-              products.live.multiprofile.enrolmentFee / currency.value
-            )}
-          </Box>
+          <Box>{formatCurrency(products.live.multiprofile.enrolmentFee)}</Box>
         </TableRow>
         <TableRow>
-          <Box>MP LIVE - Mensalidade</Box>
+          <Box>Multi Live - Mensalidade</Box>
           <Box>{currency.symbol}</Box>
-          <Box>
-            {formatValue(
-              products.live.multiprofile.monthlyPayment / currency.value
-            )}
-          </Box>
+          <Box>{formatCurrency(products.live.multiprofile.monthlyPayment)}</Box>
         </TableRow>
       </Box>
     </>

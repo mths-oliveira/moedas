@@ -4,7 +4,7 @@ export const theme = extendTheme({
   colors: {
     gray: {
       dark: "#282828",
-      light: "rgba(255,255,255,0.9)",
+      light: "#AAA",
     },
     transparent: {
       white: "rgba(255,255,255,0.1)",
