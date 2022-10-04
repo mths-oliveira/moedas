@@ -34,6 +34,8 @@ export default function () {
         position="sticky"
         top="0"
         zIndex={1}
+        borderBottom="1px solid transparent"
+        borderColor="inherit"
       >
         <Center as="button" height="3rem" width="4rem" onClick={router.back}>
           <Icon as={ArrowBackIcon} fontSize="1.5rem" />

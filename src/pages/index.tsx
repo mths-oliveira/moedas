@@ -11,12 +11,13 @@ import {
 import { ReactNode } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 import { CurrencyProfile } from "../components/currency-profile"
+import { TableRow } from "../components/table-row"
 
 interface TableRowProps extends BoxProps {
   children: ReactNode
 }
 
-const products = {
+export const products = {
   wol: {
     monthlyPayment: 138,
     multiprofile: {
@@ -31,40 +32,6 @@ const products = {
       monthlyPayment: 60,
     },
   },
-}
-
-function TableRow({ children, ...rest }: TableRowProps) {
-  return (
-    <Box
-      display="table-row"
-      padding="0.75rem 1rem"
-      _hover={{
-        bg: "secondary",
-      }}
-      sx={{
-        "&>div": {
-          display: "table-cell",
-          paddingY: "0.75rem",
-        },
-        "&>:first-child": {
-          paddingX: "1rem",
-          width: "100%",
-        },
-        "&>:not(:first-child)": {
-          fontWeight: "bold",
-          whiteSpace: "nowrap",
-        },
-        "&>:last-child": {
-          paddingRight: "1rem",
-          paddingLeft: "0.25rem",
-          textAlign: "end",
-        },
-      }}
-      {...rest}
-    >
-      {children}
-    </Box>
-  )
 }
 
 export default function () {
@@ -115,7 +82,18 @@ export default function () {
         </Center>
       </Flex>
       <Link href="/calc">
-        <Box display="table" width="100%">
+        <Box
+          display="table"
+          width="100%"
+          borderTop="1px solid transparent"
+          borderColor="inherit"
+          sx={{
+            "&>div>div": {
+              borderBottom: "1px solid transparent",
+              borderColor: "inherit",
+            },
+          }}
+        >
           <TableRow>
             <Box>Wol</Box>
             <Box>{currency.symbol}</Box>

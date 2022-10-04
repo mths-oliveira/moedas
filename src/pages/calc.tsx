@@ -5,21 +5,17 @@ import {
   Center,
   Flex,
   Icon,
-  Image,
   Stack,
-  Text,
   BoxProps,
   useColorMode,
   Checkbox,
-  Grid,
+  Divider,
+  Accordion,
 } from "@chakra-ui/react"
 import { ReactNode, useEffect, useState } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 import { CurrencyProfile } from "../components/currency-profile"
-
-interface TableRowProps extends BoxProps {
-  children: ReactNode
-}
+import { AccordionItem, Products } from "../components/accordion-item"
 
 const products = {
   wol: {
@@ -38,54 +34,84 @@ const products = {
   },
 }
 
-interface Products<T = any> {
-  wol: T
-  mp_wol: T
-  live: T
-  mp_live: T
-}
-
-const date = new Date()
-const months: string[] = []
-for (const _ of Array(3).fill(0)) {
-  const month = date.toLocaleDateString("pt-BR", {
-    month: "long",
-  })
-  date.setMonth(date.getMonth() + 1)
-  months.push(month)
-}
-
-const initialSelectedProducts: Products<boolean> = {
+const initialSelectedProducts = {
   wol: true,
   mp_wol: false,
   live: false,
   mp_live: false,
 }
 
-const productValues: Products<number[]> = {
-  wol: Array(3).fill(products.wol.monthlyPayment),
-  mp_wol: Array(3).fill(products.wol.multiprofile.monthlyPayment),
-  live: [products.live.enrolmentFee, 0, products.live.monthlyPayment],
-  mp_live: [
-    products.live.multiprofile.enrolmentFee,
-    0,
-    products.live.multiprofile.monthlyPayment,
-  ],
+const months = []
+const date = new Date()
+for (const _ of Array(3).fill(0)) {
+  const month = date.toLocaleDateString("pt-BR", {
+    month: "long",
+  })
+  months.push(month)
+  date.setMonth(date.getMonth() + 1)
 }
 
 export default function () {
+  const listProducts: Products[][] = Array(3).fill([])
   const { toggleColorMode, colorMode } = useColorMode()
-  const { currency, formatCurrency } = useCurrenciesContext()
+  const { currency } = useCurrenciesContext()
   const [selectedProducts, setSelectedProducts] = useState(
     initialSelectedProducts
   )
-  const productValuesPerMonth: number[] = Array(3).fill(0)
-  for (const productName in selectedProducts) {
-    if (selectedProducts[productName]) {
-      productValuesPerMonth[0] += productValues[productName][0]
-      productValuesPerMonth[1] += productValues[productName][1]
-      productValuesPerMonth[2] += productValues[productName][2]
+
+  if (selectedProducts["wol"]) {
+    for (const i in listProducts) {
+      listProducts[i] = [
+        ...listProducts[i],
+        {
+          name: "Wol",
+          value: products.wol.monthlyPayment,
+        },
+      ]
     }
+  }
+  if (selectedProducts["mp_wol"]) {
+    for (const i in listProducts) {
+      listProducts[i] = [
+        ...listProducts[i],
+        {
+          name: "Multi Wol",
+          value: products.wol.multiprofile.monthlyPayment,
+        },
+      ]
+    }
+  }
+  if (selectedProducts["live"]) {
+    listProducts[0] = [
+      ...listProducts[0],
+      {
+        name: "Live - Matrícula",
+        value: products.live.enrolmentFee,
+      },
+    ]
+    listProducts[2] = [
+      ...listProducts[2],
+      {
+        name: "Live - Mensalidade",
+        value: products.live.monthlyPayment,
+      },
+    ]
+  }
+  if (selectedProducts["mp_live"]) {
+    listProducts[0] = [
+      ...listProducts[0],
+      {
+        name: "Multi Live - Matrícula",
+        value: products.live.multiprofile.enrolmentFee,
+      },
+    ]
+    listProducts[2] = [
+      ...listProducts[2],
+      {
+        name: "Multi Live - Mensalidade",
+        value: products.live.multiprofile.monthlyPayment,
+      },
+    ]
   }
 
   return (
@@ -122,44 +148,10 @@ export default function () {
           />
         </Center>
       </Flex>
-      <Grid
-        padding="1rem"
-        paddingTop="0"
-        gap="0.5rem"
-        gridTemplateColumns="repeat(3, auto)"
-        justifyContent="space-between"
-        textAlign="center"
-      >
-        {months.map((month) => (
-          <Box textTransform="capitalize" key={month}>
-            {month}
-          </Box>
-        ))}
-        {productValuesPerMonth.map((value, i) => (
-          <Text key={i} fontWeight="bold">
-            {`${currency.symbol} ${formatCurrency(value)}`}
-          </Text>
-        ))}
-      </Grid>
-      <Box as="form" padding="1rem">
-        <Checkbox
-          isChecked={Object.values(selectedProducts).every(Boolean)}
-          onChange={(e) => {
-            const input = e.target as HTMLInputElement
-
-            setSelectedProducts({
-              live: input.checked,
-              mp_live: input.checked,
-              mp_wol: input.checked,
-              wol: true,
-            })
-          }}
-        >
-          Strike
-        </Checkbox>
+      <Divider />
+      <Box as="form" padding="2rem 1rem" border="1px solid secondary">
         <Stack
           spacing="1rem"
-          margin="1rem 0 0 1.5rem"
           onChange={(e) => {
             const input = e.target as HTMLInputElement
             setSelectedProducts({
@@ -167,7 +159,27 @@ export default function () {
               [input.value]: input.checked,
             })
           }}
+          sx={{
+            "&>label:not(:first-child)": {
+              marginLeft: "1.5rem",
+            },
+          }}
         >
+          <Checkbox
+            isChecked={Object.values(selectedProducts).every(Boolean)}
+            onChange={(e) => {
+              e.stopPropagation()
+              const input = e.target as HTMLInputElement
+              setSelectedProducts({
+                live: input.checked,
+                mp_live: input.checked,
+                mp_wol: input.checked,
+                wol: true,
+              })
+            }}
+          >
+            Strike
+          </Checkbox>
           <Checkbox value="wol" isChecked={selectedProducts.wol}>
             Wol
           </Checkbox>
@@ -182,6 +194,11 @@ export default function () {
           </Checkbox>
         </Stack>
       </Box>
+      <Accordion allowToggle>
+        {months.map((month, i) => (
+          <AccordionItem key={month} title={month} products={listProducts[i]} />
+        ))}
+      </Accordion>
     </>
   )
 }
