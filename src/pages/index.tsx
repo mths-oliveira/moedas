@@ -1,38 +1,10 @@
 import Link from "next/link"
+import products from "../../products.json"
 import { MoonIcon, RepeatIcon, SunIcon } from "@chakra-ui/icons"
-import {
-  Box,
-  Center,
-  Flex,
-  Icon,
-  BoxProps,
-  useColorMode,
-} from "@chakra-ui/react"
-import { ReactNode } from "react"
+import { Box, Center, Flex, Icon, useColorMode } from "@chakra-ui/react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 import { CurrencyProfile } from "../components/currency-profile"
 import { TableRow } from "../components/table-row"
-
-interface TableRowProps extends BoxProps {
-  children: ReactNode
-}
-
-export const products = {
-  wol: {
-    monthlyPayment: 138,
-    multiprofile: {
-      monthlyPayment: 30,
-    },
-  },
-  live: {
-    enrolmentFee: 250,
-    monthlyPayment: 198,
-    multiprofile: {
-      enrolmentFee: 60,
-      monthlyPayment: 60,
-    },
-  },
-}
 
 export default function () {
   const { toggleColorMode, colorMode } = useColorMode()
@@ -49,7 +21,13 @@ export default function () {
   }
   return (
     <>
-      <Flex alignItems="center" justifyContent="space-between" marginY="1rem">
+      <Flex
+        alignItems="center"
+        justifyContent="space-between"
+        paddingY="1rem"
+        borderBottom="1px solid transparent"
+        borderColor="inherit"
+      >
         <Link href="/moedas">
           <Box>
             <CurrencyProfile currency={currency}>
@@ -82,18 +60,7 @@ export default function () {
         </Center>
       </Flex>
       <Link href="/calc">
-        <Box
-          display="table"
-          width="100%"
-          borderTop="1px solid transparent"
-          borderColor="inherit"
-          sx={{
-            "&>div>div": {
-              borderBottom: "1px solid transparent",
-              borderColor: "inherit",
-            },
-          }}
-        >
+        <Box display="table" width="100%">
           <TableRow>
             <Box>Wol</Box>
             <Box>{currency.symbol}</Box>
@@ -102,9 +69,7 @@ export default function () {
           <TableRow>
             <Box>Multi Wol</Box>
             <Box>{currency.symbol}</Box>
-            <Box>
-              {formatCurrency(products.wol.multiprofile.monthlyPayment)}
-            </Box>
+            <Box>{formatCurrency(products.wolMultiprofile.monthlyPayment)}</Box>
           </TableRow>
           <TableRow>
             <Box>Live - Matrícula</Box>
@@ -119,13 +84,13 @@ export default function () {
           <TableRow>
             <Box>Multi Live - Matrícula</Box>
             <Box>{currency.symbol}</Box>
-            <Box>{formatCurrency(products.live.multiprofile.enrolmentFee)}</Box>
+            <Box>{formatCurrency(products.liveMultiprofile.enrolmentFee)}</Box>
           </TableRow>
           <TableRow>
             <Box>Multi Live - Mensalidade</Box>
             <Box>{currency.symbol}</Box>
             <Box>
-              {formatCurrency(products.live.multiprofile.monthlyPayment)}
+              {formatCurrency(products.liveMultiprofile.monthlyPayment)}
             </Box>
           </TableRow>
         </Box>

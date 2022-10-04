@@ -1,4 +1,5 @@
 import Link from "next/link"
+import products from "../../products.json"
 import { MoonIcon, RepeatIcon, SunIcon } from "@chakra-ui/icons"
 import {
   Box,
@@ -6,63 +7,51 @@ import {
   Flex,
   Icon,
   Stack,
-  BoxProps,
   useColorMode,
   Checkbox,
-  Divider,
   Accordion,
 } from "@chakra-ui/react"
-import { ReactNode, useEffect, useState } from "react"
+import { useState } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 import { CurrencyProfile } from "../components/currency-profile"
 import { AccordionItem, Products } from "../components/accordion-item"
 
-const products = {
-  wol: {
-    monthlyPayment: 138,
-    multiprofile: {
-      monthlyPayment: 30,
-    },
-  },
-  live: {
-    enrolmentFee: 250,
-    monthlyPayment: 198,
-    multiprofile: {
-      enrolmentFee: 60,
-      monthlyPayment: 60,
-    },
-  },
+interface Data {
+  name: string
+  products: Product[]
+}
+
+interface Product {
+  name: string
+  value: number
 }
 
 const initialSelectedProducts = {
   wol: true,
-  mp_wol: false,
+  wolMultiprofile: false,
   live: false,
-  mp_live: false,
+  liveMultiprofile: false,
 }
 
-const months = []
 const date = new Date()
-for (const _ of Array(3).fill(0)) {
+const firstMonths: Data[] = []
+for (let i = 0; i < 3; i++) {
   const month = date.toLocaleDateString("pt-BR", {
     month: "long",
   })
-  months.push(month)
+  firstMonths[i] = { name: month, products: [] }
   date.setMonth(date.getMonth() + 1)
 }
 
 export default function () {
-  const listProducts: Products[][] = Array(3).fill([])
   const { toggleColorMode, colorMode } = useColorMode()
   const { currency } = useCurrenciesContext()
   const [selectedProducts, setSelectedProducts] = useState(
     initialSelectedProducts
   )
-
   if (selectedProducts["wol"]) {
-    for (const i in listProducts) {
-      listProducts[i] = [
-        ...listProducts[i],
+    for (const i in firstMonths) {
+      firstMonths[i].products = [
         {
           name: "Wol",
           value: products.wol.monthlyPayment,
@@ -70,50 +59,34 @@ export default function () {
       ]
     }
   }
-  if (selectedProducts["mp_wol"]) {
-    for (const i in listProducts) {
-      listProducts[i] = [
-        ...listProducts[i],
-        {
-          name: "Multi Wol",
-          value: products.wol.multiprofile.monthlyPayment,
-        },
-      ]
+  if (selectedProducts["wolMultiprofile"]) {
+    for (const i in firstMonths) {
+      firstMonths[i].products.push({
+        name: "Multi Wol",
+        value: products.wolMultiprofile.monthlyPayment,
+      })
     }
   }
   if (selectedProducts["live"]) {
-    listProducts[0] = [
-      ...listProducts[0],
-      {
-        name: "Live - Matrícula",
-        value: products.live.enrolmentFee,
-      },
-    ]
-    listProducts[2] = [
-      ...listProducts[2],
-      {
-        name: "Live - Mensalidade",
-        value: products.live.monthlyPayment,
-      },
-    ]
+    firstMonths[0].products.push({
+      name: "Live - Matrícula",
+      value: products.live.enrolmentFee,
+    })
+    firstMonths[2].products.push({
+      name: "Live - Mensalidade",
+      value: products.live.monthlyPayment,
+    })
   }
-  if (selectedProducts["mp_live"]) {
-    listProducts[0] = [
-      ...listProducts[0],
-      {
-        name: "Multi Live - Matrícula",
-        value: products.live.multiprofile.enrolmentFee,
-      },
-    ]
-    listProducts[2] = [
-      ...listProducts[2],
-      {
-        name: "Multi Live - Mensalidade",
-        value: products.live.multiprofile.monthlyPayment,
-      },
-    ]
+  if (selectedProducts["liveMultiprofile"]) {
+    firstMonths[0].products.push({
+      name: "Multi Live - Matrícula",
+      value: products.liveMultiprofile.enrolmentFee,
+    })
+    firstMonths[2].products.push({
+      name: "Multi Live - Mensalidade",
+      value: products.liveMultiprofile.monthlyPayment,
+    })
   }
-
   return (
     <>
       <Flex alignItems="center" justifyContent="space-between" marginY="1rem">
@@ -148,12 +121,18 @@ export default function () {
           />
         </Center>
       </Flex>
-      <Divider />
+
+      <Accordion allowMultiple defaultIndex={[]}>
+        {firstMonths.map(({ name, products }) => (
+          <AccordionItem key={name} title={name} products={products} />
+        ))}
+      </Accordion>
       <Box as="form" padding="2rem 1rem" border="1px solid secondary">
         <Stack
           spacing="1rem"
           onChange={(e) => {
             const input = e.target as HTMLInputElement
+            if (input.value === "wol") return
             setSelectedProducts({
               ...selectedProducts,
               [input.value]: input.checked,
@@ -171,10 +150,10 @@ export default function () {
               e.stopPropagation()
               const input = e.target as HTMLInputElement
               setSelectedProducts({
-                live: input.checked,
-                mp_live: input.checked,
-                mp_wol: input.checked,
                 wol: true,
+                live: input.checked,
+                liveMultiprofile: input.checked,
+                wolMultiprofile: input.checked,
               })
             }}
           >
@@ -183,22 +162,23 @@ export default function () {
           <Checkbox value="wol" isChecked={selectedProducts.wol}>
             Wol
           </Checkbox>
-          <Checkbox value="mp_wol" isChecked={selectedProducts.mp_wol}>
+          <Checkbox
+            value="wolMultiprofile"
+            isChecked={selectedProducts.wolMultiprofile}
+          >
             Multi Wol
           </Checkbox>
           <Checkbox value="live" isChecked={selectedProducts.live}>
             Live
           </Checkbox>
-          <Checkbox value="mp_live" isChecked={selectedProducts.mp_live}>
+          <Checkbox
+            value="liveMultiprofile"
+            isChecked={selectedProducts.liveMultiprofile}
+          >
             Multi Live
           </Checkbox>
         </Stack>
       </Box>
-      <Accordion allowToggle>
-        {months.map((month, i) => (
-          <AccordionItem key={month} title={month} products={listProducts[i]} />
-        ))}
-      </Accordion>
     </>
   )
 }
