@@ -11,8 +11,9 @@ import {
   BoxProps,
   useColorMode,
   Checkbox,
+  Grid,
 } from "@chakra-ui/react"
-import { ReactNode, useState } from "react"
+import { ReactNode, useEffect, useState } from "react"
 import { useCurrenciesContext } from "../contexts/currencies-context"
 import { CurrencyProfile } from "../components/currency-profile"
 
@@ -37,30 +38,56 @@ const products = {
   },
 }
 
-const selectedProducts = {
+interface Products<T = any> {
+  wol: T
+  mp_wol: T
+  live: T
+  mp_live: T
+}
+
+const date = new Date()
+const months: string[] = []
+for (const _ of Array(3).fill(0)) {
+  const month = date.toLocaleDateString("pt-BR", {
+    month: "long",
+  })
+  date.setMonth(date.getMonth() + 1)
+  months.push(month)
+}
+
+const initialSelectedProducts: Products<boolean> = {
   wol: true,
   mp_wol: false,
   live: false,
   mp_live: false,
 }
 
+const productValues: Products<number[]> = {
+  wol: Array(3).fill(products.wol.monthlyPayment),
+  mp_wol: Array(3).fill(products.wol.multiprofile.monthlyPayment),
+  live: [products.live.enrolmentFee, 0, products.live.monthlyPayment],
+  mp_live: [
+    products.live.multiprofile.enrolmentFee,
+    0,
+    products.live.multiprofile.monthlyPayment,
+  ],
+}
+
 export default function () {
   const { toggleColorMode, colorMode } = useColorMode()
-  const { currency } = useCurrenciesContext()
-  const [_, setBool] = useState(true)
-  function refresh() {
-    setBool((bool) => !bool)
-  }
-  function formatCurrency(value: number) {
-    if (currency.code !== "BRL") {
-      value = value / currency.value
+  const { currency, formatCurrency } = useCurrenciesContext()
+  const [selectedProducts, setSelectedProducts] = useState(
+    initialSelectedProducts
+  )
+  const productValuesPerMonth: number[] = Array(3).fill(0)
+  for (const productName in selectedProducts) {
+    if (selectedProducts[productName]) {
+      productValuesPerMonth[0] += productValues[productName][0]
+      productValuesPerMonth[1] += productValues[productName][1]
+      productValuesPerMonth[2] += productValues[productName][2]
     }
-    const currencyValue = value
-      .toFixed(2)
-      .replace(".", ",")
-      .replace(/(\d+)(\d{3})/, "$1.$2")
-    return currencyValue
   }
+
   return (
     <>
       <Flex alignItems="center" justifyContent="space-between" marginY="1rem">
@@ -95,15 +122,37 @@ export default function () {
           />
         </Center>
       </Flex>
-      <Box as="form" paddingX="1rem">
+      <Grid
+        padding="1rem"
+        paddingTop="0"
+        gap="0.5rem"
+        gridTemplateColumns="repeat(3, auto)"
+        justifyContent="space-between"
+        textAlign="center"
+      >
+        {months.map((month) => (
+          <Box textTransform="capitalize" key={month}>
+            {month}
+          </Box>
+        ))}
+        {productValuesPerMonth.map((value, i) => (
+          <Text key={i} fontWeight="bold">
+            {`${currency.symbol} ${formatCurrency(value)}`}
+          </Text>
+        ))}
+      </Grid>
+      <Box as="form" padding="1rem">
         <Checkbox
           isChecked={Object.values(selectedProducts).every(Boolean)}
           onChange={(e) => {
             const input = e.target as HTMLInputElement
-            Object.keys(selectedProducts).forEach((product) => {
-              selectedProducts[product] = input.checked
+
+            setSelectedProducts({
+              live: input.checked,
+              mp_live: input.checked,
+              mp_wol: input.checked,
+              wol: true,
             })
-            refresh()
           }}
         >
           Strike
@@ -113,8 +162,10 @@ export default function () {
           margin="1rem 0 0 1.5rem"
           onChange={(e) => {
             const input = e.target as HTMLInputElement
-            selectedProducts[input.value] = input.checked
-            refresh()
+            setSelectedProducts({
+              ...selectedProducts,
+              [input.value]: input.checked,
+            })
           }}
         >
           <Checkbox value="wol" isChecked={selectedProducts.wol}>
@@ -124,10 +175,10 @@ export default function () {
             Multi Wol
           </Checkbox>
           <Checkbox value="live" isChecked={selectedProducts.live}>
-            Live{" "}
+            Live
           </Checkbox>
           <Checkbox value="mp_live" isChecked={selectedProducts.mp_live}>
-            Multi Live{" "}
+            Multi Live
           </Checkbox>
         </Stack>
       </Box>

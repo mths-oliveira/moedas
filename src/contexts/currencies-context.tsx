@@ -9,6 +9,7 @@ import {
 interface Context {
   currency: Currency
   setCurrency: (currency: Currency) => void
+  formatCurrency: (values: number) => string
 }
 
 export interface Currency {
@@ -35,6 +36,16 @@ const real: Currency = {
 
 export function CurrenciesContextProvider({ children }: Props) {
   const [currency, setCurrency] = useState<Currency>(real)
+  function formatCurrency(value: number) {
+    if (currency.code !== "BRL") {
+      value = value / currency.value
+    }
+    const currencyValue = value
+      .toFixed(2)
+      .replace(".", ",")
+      .replace(/(\d+)(\d{3})/, "$1.$2")
+    return currencyValue
+  }
   useEffect(() => {
     const currency: Currency = JSON.parse(localStorage.getItem("currency"))
     if (!currency) return
@@ -47,7 +58,9 @@ export function CurrenciesContextProvider({ children }: Props) {
     localStorage.setItem("currency", JSON.stringify(currency))
   }, [currency])
   return (
-    <currenciesContext.Provider value={{ currency, setCurrency }}>
+    <currenciesContext.Provider
+      value={{ currency, setCurrency, formatCurrency }}
+    >
       {children}
     </currenciesContext.Provider>
   )

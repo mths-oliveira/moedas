@@ -114,38 +114,44 @@ export default function () {
           />
         </Center>
       </Flex>
-      <Box display="table" width="100%">
-        <TableRow>
-          <Box>Wol</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.wol.monthlyPayment)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Multi Wol</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.wol.multiprofile.monthlyPayment)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Live - Matrícula</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.enrolmentFee)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Live - Mensalidade</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.monthlyPayment)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Multi Live - Matrícula</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.multiprofile.enrolmentFee)}</Box>
-        </TableRow>
-        <TableRow>
-          <Box>Multi Live - Mensalidade</Box>
-          <Box>{currency.symbol}</Box>
-          <Box>{formatCurrency(products.live.multiprofile.monthlyPayment)}</Box>
-        </TableRow>
-      </Box>
+      <Link href="/calc">
+        <Box display="table" width="100%">
+          <TableRow>
+            <Box>Wol</Box>
+            <Box>{currency.symbol}</Box>
+            <Box>{formatCurrency(products.wol.monthlyPayment)}</Box>
+          </TableRow>
+          <TableRow>
+            <Box>Multi Wol</Box>
+            <Box>{currency.symbol}</Box>
+            <Box>
+              {formatCurrency(products.wol.multiprofile.monthlyPayment)}
+            </Box>
+          </TableRow>
+          <TableRow>
+            <Box>Live - Matrícula</Box>
+            <Box>{currency.symbol}</Box>
+            <Box>{formatCurrency(products.live.enrolmentFee)}</Box>
+          </TableRow>
+          <TableRow>
+            <Box>Live - Mensalidade</Box>
+            <Box>{currency.symbol}</Box>
+            <Box>{formatCurrency(products.live.monthlyPayment)}</Box>
+          </TableRow>
+          <TableRow>
+            <Box>Multi Live - Matrícula</Box>
+            <Box>{currency.symbol}</Box>
+            <Box>{formatCurrency(products.live.multiprofile.enrolmentFee)}</Box>
+          </TableRow>
+          <TableRow>
+            <Box>Multi Live - Mensalidade</Box>
+            <Box>{currency.symbol}</Box>
+            <Box>
+              {formatCurrency(products.live.multiprofile.monthlyPayment)}
+            </Box>
+          </TableRow>
+        </Box>
+      </Link>
     </>
   )
 }

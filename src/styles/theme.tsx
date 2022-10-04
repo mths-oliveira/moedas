@@ -7,6 +7,7 @@ export const theme = extendTheme({
         default: "#565857",
         _dark: "#FFF",
       },
+
       primary: {
         default: "#FFF",
         _dark: "#282828",
@@ -33,7 +34,7 @@ export const theme = extendTheme({
       "html, body": {
         color: "text",
         bg: "primary",
-        fontWeight: "500",
+        fontWeight: 500,
         scrollBehavior: "smooth",
       },
     },
